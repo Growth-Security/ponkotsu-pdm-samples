@@ -1,0 +1,22 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Springフォーム・入力検証 追試用サンプル</title><style>body{font:16px/1.8 system-ui,sans-serif;color:#1d2939;max-width:900px;margin:40px auto;padding:0 24px}h1{font-size:28px}h2{margin-top:36px;font-size:22px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #cbd5e1;padding:12px;text-align:left;vertical-align:top}pre{background:#17243e;color:#e8edf4;padding:16px;overflow:auto}a{color:#006d87}code{overflow-wrap:anywhere}.note{border-left:4px solid #007f9f;background:#eff8fb;padding:16px}small{color:#53657b}</style></head><body>
+<small>ポンコツPdMの開発メモ ／ 教材用サンプル</small><h1>Springフォーム・入力検証を、<br>テストを動かして確かめる</h1>
+<p>ブログの実装例を追試するための、独立した4つのMavenプロジェクトです。入力の形式、画面への再表示、Serviceの判断、Securityによる拒否を分けて確認します。実在の顧客・社内コード・データは含みません。</p>
+<p class="note">最初からすべて読む必要はありません。対象の記事に対応するフォルダーを選び、まずテストを通し、入力値や期待値を一つ変えて挙動を確かめてください。4つを1つのアプリとして起動する構成ではありません。</p>
+<h2>必要なもの・実行方法</h2>
+<ul><li>JDK 17、Maven 3.9系。確認環境はJava 17.0.8／Maven 3.9.16。</li><li>Spring Boot 3.5.16の依存管理、Hibernate Validator 8.0.1.Finalを使用。最新版への追随を約束する教材ではなく、記事の結果を再現するために固定しています。</li><li>初回はMaven Central等から依存関係を取得できるネットワークが必要です。外部DB、WordPressのアカウント、APIキーは不要です。</li></ul>
+<p>解凍したフォルダーから、対象のプロジェクトへ移動して実行します。</p><pre><code>cd 01-validation-basics
+mvn test</code></pre>
+<p>結果は各フォルダーの <code>target/surefire-reports/</code> に作られます。依存関係を取得済みなら <code>mvn -o test</code> でオフライン実行できます。Javaの版やネットワークの失敗と、テストの期待値不一致を分けて確認してください。</p>
+<h2>何を確かめるサンプルか</h2>
+<table><thead><tr><th>フォルダー</th><th>確かめる内容</th><th>対応する記事</th></tr></thead><tbody>
+<tr><td><code>01-validation-basics</code></td><td>検証グループ、メッセージの表示、入力の型変換・必須値・JSONと400応答。</td><td><a href="https://syachiku-uz.info/spring-valid-validated-difference/">@Validと@Validated</a><br><a href="https://syachiku-uz.info/spring-validation-message-not-displayed/">メッセージが表示されない</a><br><a href="https://syachiku-uz.info/spring-400-bad-request-causes/">400の原因</a></td></tr>
+<tr><td><code>02-controller-service</code></td><td>FormからCommandへ渡す値、形式チェックとメール重複の業務判断、HTMLの項目エラーとJSONの409、保存処理の呼出有無。</td><td><a href="https://syachiku-uz.info/spring-form-dto-difference/">FormとDTOを分ける判断</a><br><a href="https://syachiku-uz.info/spring-validation-controller-service/">ControllerとServiceの分担</a></td></tr>
+<tr><td><code>03-thymeleaf-redisplay</code></td><td>異常POST後の入力値・選択肢・選択値・エラー文、正常時の遷移、BindingResultの引数位置。</td><td><a href="https://syachiku-uz.info/spring-thymeleaf-form-value-lost/">入力エラー後に値が消える</a></td></tr>
+<tr><td><code>04-mockmvc-security</code></td><td>Securityフィルター有効時のCSRF・認証・権限、FormとJSON、200／302／400／401／403／415とService到達の関係。</td><td><a href="https://syachiku-uz.info/spring-mockmvc-post-403-400/">MockMvcのPOSTが403・400になる</a></td></tr>
+</tbody></table>
+<h2>おすすめの試し方</h2><ol><li><code>src/test/java/</code> のテストを開き、送信値と期待結果を読む。</li><li>変更前の <code>mvn test</code> が成功することを確認する。</li><li>例として正常な数値を文字列に変える、必要な入力を除くなど、一条件だけ変える。</li><li>HTTP応答だけでなく、項目エラー、再表示HTML、Serviceや保存処理の呼出有無を確認する。</li><li>何が保証でき、何を別のテストで確認する必要があるかを短く説明する。</li></ol>
+<h2>この教材で検証していないこと</h2><p>MockMvcとJUnitを中心にした検証です。実ブラウザーの操作、JavaScript、実ネットワーク経由の通信、外部DB・本番データ、同時実行の競合、負荷、アプリ全体のセキュリティ監査は対象外です。特にServiceの重複チェック例は、mockのRepositoryへの保存処理の呼出を確認するもので、本番DBへの永続化、競合や一意制約まで保証しません。</p>
+<p>4番の認証済みリクエストは、テスト用の <code>user()</code> で利用者と権限を用意しています。実際のログイン処理やパスワード照合は検証していません。</p>
+<p>3番のサンプルはテスト結果のHTMLを <code>target/evidence/</code> に出力します。元の記事制作時の出力先から、この教材フォルダーの内側へ変更しています。アプリ本体の処理は変えていません。テスト専用のMockito設定は、この教材で必要なモックに絞ったもので、あらゆるfinalクラス等のモックを保証する設定ではありません。</p>
+<h2>安全な利用のために</h2><p>教材のコードをそのまま本番の認証・データ保存の完成形として利用しないでください。ローカルでテストを実行する前提で、サーバーを外部公開する手順は含めていません。認証情報や社内データをサンプルへ書き込んで公開しないでください。</p><p><code>SHA256SUMS.txt</code> には配布時のファイルのハッシュ値があります。依存ライブラリのバイナリ、実行済みのtargetフォルダー、社内資料は同梱していません。</p>
+</body></html>

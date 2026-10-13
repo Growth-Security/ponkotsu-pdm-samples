@@ -1,0 +1,66 @@
+{
+  "runtime": "JDK 17.0.8 / Maven 3.9.16",
+  "dependencyManagement": "Spring Boot 3.5.16 (no Spring application starts)",
+  "libraries": {
+    "junit-jupiter": "5.12.2",
+    "mockito-core": "5.17.0"
+  },
+  "scope": "Fictional teaching examples; no DB, network, authentication, or transaction verification.",
+  "counts": {
+    "tests": 22,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "name": "info.syachiku.learning.MockitoBehaviorTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "cases": [
+        "successfulSpyWhenStillExecutesRealMethodDuringStubbing",
+        "doReturnAcceptsWrongTypeAtCompileTimeButRejectsItAtRuntime",
+        "unstubbedSpyExecutesRealMethod",
+        "spyDoReturnAvoidsRealMethodDuringStubbingAndInvocation",
+        "mockWhenDoesNotExecuteRealMethod",
+        "spyWhenFailsBeforeThenReturnForUnknownCustomer"
+      ]
+    },
+    {
+      "name": "info.syachiku.learning.OrderServiceTest",
+      "tests": "12",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "cases": [
+        "propagatesRepositoryFailureWithoutPretendingSuccess",
+        "rejectsInvalidQuantityBeforeCallingDependencies(Integer)[1]",
+        "rejectsInvalidQuantityBeforeCallingDependencies(Integer)[2]",
+        "rejectsInvalidQuantityBeforeCallingDependencies(Integer)[3]",
+        "rejectsInvalidQuantityBeforeCallingDependencies(Integer)[4]",
+        "propagatesMissingCustomerWithoutSaving",
+        "rejectsInvalidCustomerIdBeforeCallingDependencies(Long)[1]",
+        "rejectsInvalidCustomerIdBeforeCallingDependencies(Long)[2]",
+        "rejectsInvalidCustomerIdBeforeCallingDependencies(Long)[3]",
+        "rejectsInactiveCustomerWithoutSaving",
+        "acceptsQuantityBoundaryAndSavesExactDraft(int)[1]",
+        "acceptsQuantityBoundaryAndSavesExactDraft(int)[2]"
+      ]
+    },
+    {
+      "name": "info.syachiku.learning.cancel.CancelOrderServiceTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "cases": [
+        "shippedOrderIsRejectedWithoutStateChangeOrSaving",
+        "alreadyCanceledOrderIsRejectedWithoutSavingAgain",
+        "waitingOrderIsCanceledAndSaved",
+        "missingOrderIsRejectedWithoutSaving"
+      ]
+    }
+  ]
+}

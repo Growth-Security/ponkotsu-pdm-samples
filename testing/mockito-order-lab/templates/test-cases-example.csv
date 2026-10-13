@@ -1,0 +1,5 @@
+﻿"ケースID","対象範囲","確認すること","前提","入力・操作","期待する状態・戻り値","期待する保存処理","自動テスト名","実行結果","備考"
+"C01","SC01","発送待ちの取消が成功する","注文100はWAITING","cancel(100)","CANCELED","save(order)が1回","waitingOrderIsCanceledAndSaved","成功","架空の教材例"
+"C02","SC02","発送済みは取り消さない","注文200はSHIPPED","cancel(200)","OrderCannotBeCanceledException／SHIPPEDのまま","saveなし","shippedOrderIsRejectedWithoutStateChangeOrSaving","成功","架空の教材例"
+"C03","SC03","存在しない注文は保存しない","findById(999)はOptional.empty","cancel(999)","OrderNotFoundExceptionのorderIdが999","saveなし","missingOrderIsRejectedWithoutSaving","成功","架空の教材例"
+"C04","SC04","取消済み注文を再保存しない","注文300はCANCELED","cancel(300)","OrderCannotBeCanceledException／CANCELEDのまま","saveなし","alreadyCanceledOrderIsRejectedWithoutSavingAgain","成功","再取消をエラーにするのは教材の仕様"
