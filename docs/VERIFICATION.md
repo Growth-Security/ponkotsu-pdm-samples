@@ -33,4 +33,8 @@ GitHubではフォルダー配置と案内文を整理しています。上記�
 
 初期公開の固定版参照先は [`samples-2026-10-13`](https://github.com/Growth-Security/ponkotsu-pdm-samples/tree/samples-2026-10-13) です。記事の追試時は、変更が続く最新ブランチと固定版を区別してください。
 
+同日、独自作成のサンプルコード・テンプレート・説明文をMITライセンスで公開する方針を採用しました。MIT版の固定版参照先は [`samples-2026-10-13-mit`](https://github.com/Growth-Security/ponkotsu-pdm-samples/tree/samples-2026-10-13-mit) です。この変更は `LICENSE` の追加と案内文・検証記録の更新に限り、5つのサンプルの `src/` と `pom.xml` は初期公開コミット `d81b3a96433d8ea1b7996566cb48a87d26fe2e00` から変更していません。
+
+初期タグと元のブログ配布ZIPは上書きしません。MIT版の利用条件は、新しい固定版に含まれる `LICENSE` を参照してください。上表の元ZIPのハッシュ値もそのまま維持します。
+
 GitHub上の現在の検証状態は[Actionsの実行結果](https://github.com/Growth-Security/ponkotsu-pdm-samples/actions/workflows/verify-samples.yml)で確認できます。自動検証は、mainへのPush、Pull Request、手動実行を対象に、Java 17で5つのサンプルを個別にテストします。上記のローカル成功数を、GitHub上での実行結果に読み替えないでください。
