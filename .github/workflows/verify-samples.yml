@@ -22,6 +22,7 @@ jobs:
           - spring/form-validation/02-controller-service
           - spring/form-validation/03-thymeleaf-redisplay
           - spring/form-validation/04-mockmvc-security
+          - spring/book-selection-check
           - testing/mockito-order-lab
     steps:
       - name: ソースを取得

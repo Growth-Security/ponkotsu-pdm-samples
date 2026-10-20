@@ -37,4 +37,23 @@ GitHubではフォルダー配置と案内文を整理しています。上記�
 
 初期タグと元のブログ配布ZIPは上書きしません。MIT版の利用条件は、新しい固定版に含まれる `LICENSE` を参照してください。上表の元ZIPのハッシュ値もそのまま維持します。
 
-GitHub上の現在の検証状態は[Actionsの実行結果](https://github.com/Growth-Security/ponkotsu-pdm-samples/actions/workflows/verify-samples.yml)で確認できます。自動検証は、mainへのPush、Pull Request、手動実行を対象に、Java 17で5つのサンプルを個別にテストします。上記のローカル成功数を、GitHub上での実行結果に読み替えないでください。
+GitHub上の現在の検証状態は[Actionsの実行結果](https://github.com/Growth-Security/ponkotsu-pdm-samples/actions/workflows/verify-samples.yml)で確認できます。自動検証は、mainへのPush、Pull Request、手動実行を対象に、Java 17で各サンプルを個別にテストします。上記のローカル成功数を、GitHub上での実行結果に読み替えないでください。
+
+
+## 選書記事の理解度チェックサンプル（2026年10月20日）
+
+新規の`spring/book-selection-check`を独立プロジェクトとして追加しました。既存5サンプルのソースと依存バージョンは変更していません。書籍コードの転載ではなく、当ブログの独自コードです。ルートのMITライセンスを適用します。
+
+JDK 17.0.8、Maven 3.9.16、Spring Boot 3.5.16、Hibernate Validator 8.0.1.Finalで`mvn -B --no-transfer-progress verify`を実行し、6件成功、失敗・エラー・スキップ0件、実行可能JARの生成成功を確認しました。必要なSpring JDBC/H2依存を通常のMaven取得で追加しています。
+
+| テスト | 件数 | 確認結果 |
+| --- | ---: | --- |
+| 正常登録 | 1 | MockMvc→Controller→Service→H2を通し、201、DB生成ID、数量、注文保存、在庫減算 |
+| 入力不正 | 4 | 数量0、文字列abc、欠落、nullが400、注文・在庫に変更なし |
+| 在庫不足 | 1 | 先行成功注文を保持し、後続の注文INSERT後の在庫不足が409、失敗注文のみロールバック、在庫維持 |
+
+テスト本体は`@Transactional`を使わず、ServiceのSpringトランザクション確定後にH2を直接照会しています。DBとServiceはmock化していません。在庫不足のUPDATEは0件なので、そのUPDATEが在庫を変更してから戻ると説明するものではありません。ロールバックの検証対象は先行する注文INSERTです。
+
+生成したJARを`java -jar target/book-selection-check-1.0.0.jar`で起動し、READMEのcurlで201と`{"orderId":1,"quantity":2}`、続く数量4のリクエストで409を確認しました。確認後にアプリを停止しています。
+
+対象外は実ブラウザー、本番DB、並行処理、認証・認可、負荷、実運用の在庫管理です。GitHub Actionsのmatrixに新規サンプルを追加していますが、このローカル結果はGitHub上の成功を意味しません。既存5サンプルの再実行はこの追加作業では行っていません。
