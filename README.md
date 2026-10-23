@@ -2,12 +2,16 @@
 
 [ポンコツPdMの開発メモ](https://syachiku-uz.info/)の記事で紹介した実装やテストを、自分の環境で確かめるためのサンプル集です。Java・Springの改修を任された新人・若手エンジニアを中心に、原因の切り分け、修正、テスト結果の説明を練習できます。
 
-サンプルはそれぞれ独立したMavenプロジェクトです。必要なフォルダーに移動して実行してください。すべてを組み合わせた一つのアプリケーションではありません。
+サンプルはそれぞれ独立して実行できます。クラス設計の入門例はjavacで、それ以外は各フォルダーのMavenで実行します。必要なフォルダーに移動して実行してください。すべてを組み合わせた一つのアプリケーションではありません。
 
 ## サンプルを選ぶ
 
 | やりたいこと | サンプル | 対応記事 |
 | --- | --- | --- |
+| メソッド抽出とクラス分割を、保存回数まで保って比較する | [メソッドかクラスか](design/method-or-class/)・[サンプルZIP](downloads/method-or-class-sample.zip) | [Javaの処理をどこで分けるか](https://syachiku-uz.info/how-to-split/) |
+| 計算と表示を分け、変更するクラスを判断する | [Javaのクラス設計](java/class-design-basics/) | 公開準備中 |
+| JUnitで最初の3件を実行し、1件の失敗を直す | [JUnitの最初の実行](testing/junit-first-test/)・[サンプルZIP](downloads/junit-first-test-sample.zip) | JUnit 5入門（記事は2026年10月24日8:00公開予定） |
+| 仕様から入力・期待値を選び、境界をJUnitで確認する | [Javaのテスト入門](testing/java-testing-basics/) | 公開準備中 |
 | 入力制約、検証グループ、エラーメッセージ、400応答を確認する | [入力検証の基本](spring/form-validation/01-validation-basics/) | [@Validと@Validated](https://syachiku-uz.info/spring-valid-validated-difference/)・[メッセージが表示されない](https://syachiku-uz.info/spring-validation-message-not-displayed/)・[400の原因](https://syachiku-uz.info/spring-400-bad-request-causes/) |
 | FormからServiceへ渡す値と、業務上のチェックを分ける | [ControllerとServiceの分担](spring/form-validation/02-controller-service/) | [FormとDTO](https://syachiku-uz.info/spring-form-dto-difference/)・[ControllerとService](https://syachiku-uz.info/spring-validation-controller-service/) |
 | 入力エラー後も値・選択肢・メッセージを表示する | [Thymeleafの再表示](spring/form-validation/03-thymeleaf-redisplay/) | [入力エラー後に値が消える](https://syachiku-uz.info/spring-thymeleaf-form-value-lost/) |

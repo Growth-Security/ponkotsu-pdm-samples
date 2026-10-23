@@ -38,3 +38,13 @@ GitHubではフォルダー配置と案内文を整理しています。上記�
 初期タグと元のブログ配布ZIPは上書きしません。MIT版の利用条件は、新しい固定版に含まれる `LICENSE` を参照してください。上表の元ZIPのハッシュ値もそのまま維持します。
 
 GitHub上の現在の検証状態は[Actionsの実行結果](https://github.com/Growth-Security/ponkotsu-pdm-samples/actions/workflows/verify-samples.yml)で確認できます。自動検証は、mainへのPush、Pull Request、手動実行を対象に、Java 17で5つのサンプルを個別にテストします。上記のローカル成功数を、GitHub上での実行結果に読み替えないでください。
+
+
+## Javaのクラス設計・テスト入門（2026年10月23日）
+
+Springを使い始める前の独立した2題材を追加しました。書籍の転載ではなく独自作成コードで、ルートのMITライセンスが適用されます。
+
+- `java/class-design-basics`：JDK 17.0.8でREADMEのjavac/javaを実行。整理前と整理後はいずれも「請求額：6500円」、見積額6500円、小計6000円・送料500円を確認しました。検証の対象は料金計算と表示の分離で、Web・DB連携はありません。
+- `testing/java-testing-basics`：JDK 17.0.8、Maven 3.9.5、JUnit Jupiter 5.12.2で `mvn -o test` を実行し9件成功、失敗・エラー・スキップ0件でした。既存キャッシュを用いた実行であり、空の依存キャッシュからの取得はこの検証に含みません。
+
+既存サンプルのソース・依存バージョンには変更を加えていません。既存サンプルの再実行、GitHub Actionsでの新しい2例の実行は今回のローカル結果に含みません。

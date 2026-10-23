@@ -7,3 +7,7 @@
 .env
 .env.*
 !.env.example
+
+# javac学習サンプルの生成物
+out/
+*.class
